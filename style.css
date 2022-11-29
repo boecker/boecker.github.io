@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Mono:wght@100&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans", sans-serif;
+}
+
+body {
+  margin: 16mm;
+  width: 210mm;
+  height: 297mm;
+  padding: 16mm;
+  outline: 0.1rem solid #000;
+  font-size: 1.1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+h4 {
+  font-weight: normal;
+  color: #777;
+}
+
+p {
+  padding-bottom: .5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #00e;
+}
+
+.header-container {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0em 1em;
+  grid-template-areas:
+    "Name Name Profile Profile"
+    "Area Email Profile Profile"
+    "Portfolio Mobile Profile Profile";
+}
+.Name {
+  grid-area: Name;
+}
+.Profile {
+  grid-area: Profile;
+}
+.Area {
+  grid-area: Area;
+}
+.Email {
+  grid-area: Email;
+}
+.Mobile {
+  grid-area: Mobile;
+}
+.Portfolio {
+  grid-area: Portfolio;
+}
+
+.education-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 0fr 1fr;
+  gap: 0.5rem 0;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "University University Degree Degree Degree DegreeAward"
+    "University University Hnd Hnd Hnd HndAward"
+    "Line Line Line Line Line Line"
+    "College College Diploma Diploma Diploma DiplomaAward";
+  align-items: center;
+}
+
+.University {
+  grid-area: University;
+}
+
+.Degree {
+  grid-area: Degree;
+}
+
+.Hnd {
+  grid-area: Hnd;
+}
+
+.DegreeAward {
+  grid-area: DegreeAward;
+}
+
+.HndAward {
+  grid-area: HndAward;
+}
+
+.College {
+  grid-area: College;
+}
+
+.Diploma {
+  grid-area: Diploma;
+}
+
+.DiplomaAward {
+  grid-area: DiplomaAward;
+}
+
+.Line {
+  grid-area: Line;
+  background-color: black;
+  height: 0.1rem;
+  display: block;
+}
+
+.award {
+  background-color: #cec;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+@page {
+  size: A4;
+}
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+}

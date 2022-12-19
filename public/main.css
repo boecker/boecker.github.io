@@ -1,0 +1,164 @@
+:root {
+    --link: #7aa2f7;
+    --link-visited: #bb9af7;
+    --link-hover: #9ece6a;
+}
+
+@media (prefers-color-scheme: light) {
+  :root { 
+    --bg: #fff;
+    --fg: #1a1b26;
+    --accent:#b4f9f8;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root { 
+    --bg: #1a1b26;
+    --fg: #d5d6db;
+    --accent:#33635c;
+  }
+
+  .page img {
+    filter: invert(100%);
+  }
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 18px;
+  max-width: 600px;
+  margin: auto;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+a {
+  color: var(--link);
+    text-decoration: none;
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+p, ul {
+  line-height: 150%;
+}
+
+code {
+  background-color: var(--accent);
+  border-radius: 0.3rem;
+  padding: 0 0.2rem;
+}
+
+pre > code {
+  padding: 0;
+}
+
+time {
+  font-size: 75%;
+}
+
+body > h1 {
+  text-align: center;
+}
+
+body > h1 > a:hover {
+  text-decoration: none;
+}
+
+.page {
+  padding: 0 1rem;
+}
+
+.page h2 {
+  font-size: 130%;
+}
+
+.page figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.page figure img {
+  width: 100%;
+}
+
+.page figure figcaption {
+  text-align: center;
+  font-size: 70%;
+  font-style: italic;
+}
+
+.page footer {
+  border-top: 1px solid var(--link-hover);
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+.page footer p {
+  margin: 0;
+}
+
+.post-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  padding-top: 1rem;
+}
+
+.post-list time {
+  float: right;
+}
+
+.footer {
+  padding: 5rem 1rem;
+  text-align: center;
+}
+
+.footer > p {
+  padding: 2rem 0;
+}
+
+.footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.footer li {
+  display: inline;
+  padding: 0 1rem;
+}
+
+.footnotes-sep {
+  border: 0;
+  border-top: 1px solid var(--link-hover);
+  margin: 2rem 0;
+}
+
+.footnotes {
+    font-size: 75%;
+}
+
+/* .footer li:not(:last-of-type)::after { */
+/*   content: "⋅" */
+/* } */
+
+@media only screen and (max-width: 420px) {
+  .footer li {
+    display: block;
+    padding: 0.5rem 0 ;
+  }
+}

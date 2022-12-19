@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta viewport="width=device-width, initial-scale=1.0" />
-    <title>Boecker's Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
+<head>
+    <link href="./public/prism-one-dark.css" rel="stylesheet" />
+    <link href="./public/prism-one-light.css" rel="stylesheet" />
+    <link href="./public/main.css" rel="stylesheet" />
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+    <script defer data-domain="boecker.github.io" src="https://plausible.io/js/script.outbound-links.js"></script>
+  </head>
+  
   <body>
-    <div class="header-container">
-      <div class="Name"><h1>Jack Dawson Boecker</h1></div>
-      <div class="Area">
-        <h4>Area</h4>
-        Rockford, MN
-      </div>
-      <div class="Email">
-        <h4>Email</h4>
-        <a href="mailto:boeckerjack@protonmail.com">boeckerjack@protonmail.com</a>
-      </div>
-      <div class="Mobile">
-        
-      </div>
-      <div class="Portfolio">
-        <h4>Portfolio</h4>
-        <a href="https://boecker.github.io">boecker.github.io</a>
-      </div>
-      <div class="Profile">
-        <p>
-          Sophmore in HS, hobbyist, athlete, and professional in development ranging
-          from command-line-interfaces(CLI) to full device drivers
-        </p>
-        <p>
-          I enjoy inter-discipline teamwork, problem solving, systems
-          architecture, and keeping my skills modern.
-        </p>
-      </div>
-    </div>
+    <h1> <a href='/'> boecker.github.io </a></h1>
+    <article class="page">
+      <h2>Hi</h2>
+  <p>I'm Jack Boecker. Mainly, I'm comp engineer. I like to write stupid things that manage to work!</p>
+  <h3>Main Interests</h3>
+  <ul>
+  <li>Compilers</li>
+  <li>C++</li>
+  <li>Rust</li>
+  </ul>
+  
+    </article>
+  
+    <footer class="footer">
+      <ul>
+        <li><a href="/about"> about </a></li>
+        <li><a href="/cheat"> cheatsheet </a></li>
+        <li><a href="/feed.xml"> rss </a></li>
+      </ul>
+      <p onclick="document.querySelector('body').classList.toggle('mono')">&copy; 2022 Jack Boecker</p>
+    </footer>
   </body>
 </html>

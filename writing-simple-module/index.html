@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="/public/prism-one-dark.css" , rel="stylesheet" />
+    <link href="/public/prism-one-light.css" , rel="stylesheet" />
+    <link href="/public/main.css" , rel="stylesheet" />
+
+    <link
+      rel="canonical"
+      href="https://boecker.github.io/writing-simple-module/"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script
+      defer
+      data-domain="boecker.github.io"
+      src="https://plausible.io/js/script.outbound-links.js"
+    ></script>
+  </head>
+
+  <body>
+    <h1><a href="/"> Jack's Portfolio </a></h1>
+    <article class="page">
+      <header>
+        <h1>Write a simple kernel module</h1>
+        <time datetime="2022-12-25T00:00:00.000Z">December 2022</time>
+        <h2></h2>
+      </header>
+      <section>
+        <h1>Kernel module package</h1>
+        <p>
+          Linux distrubitions provide the commands <tt>modprobe</tt>,
+          <tt>insmod</tt> and <tt>depmod</tt> within a package.
+        </p>
+
+        <p>On Ubuntu/Debian:</p>
+        <pre
+          class="language-shell"
+        ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>sudo apt-get install build-essential kmod</code></pre>
+        <p>On Arch Linux:</p>
+        <pre
+          class="language-shell"
+        ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>sudo pacman -S gcc kmod</code></pre>
+        <h1>Before We Begin</h1>
+        <p>
+          Before we delve into code, there are a few issues we need to cover.
+          Everyone's system is different and everyone has their own groove.
+          Getting your first "hello world" program to compile and load correctly
+          can sometimes be a trick. Rest assured, after you get over the initial
+          hurdle of doing it for the first time, it will be smooth sailing from
+          thereafter.
+        </p>
+        <li class="enumerate">
+          Modversioning. A module compiled for one kernel will not load if you
+          boot a different kernel unless you enable <b>CONFIG_MODVERSIONS</b> in
+          the kernel. We will not go into module versioning until later. Until
+          we cover modversions, the examples in the guide may not work if you
+          are running a kernel with modversioning turned on. However, most stock
+          Linux distrubition kernels come with it turned on. If you are having
+          trouble loading modules because of versioning errors, compile a kernel
+          with modversioning turned off.
+        </li>
+        <li class="enumerate">
+          Using X Window System. It is highly recommended that you extract,
+          compile and load all the examples this guide discusses from a console.
+          You should not be working on this stuff in X Window System.
+        </li>
+        <p>
+          Modules can not print the screen like <b>printf()</b> can, but they
+          can log information and warnings, which ends up bring printed on your
+          screen, but only on a console. If you <b>ismod</b> a module from an
+          xterm, the information and warnings will be logged, but only to your
+          systemd journal. You will not see it unless you look through your
+          <b>journalctl</b>. To have immediate access to this information, do
+          all your work through the console.
+        </p>
+        <li class="enumerate">
+          SecureBoot. Many contemporary computers are pre-configured with UEFI
+          SecureBoot enabled. It is a security standard that can make sure the
+          device boots using only software that is trusted by original equipment
+          manufacturer. The default Linux kernel from some distrubitions have
+          also enabled SecureBoot. For such distributions, the kernel module has
+          to be signed with the security key or you would get the
+          <i>"ERROR: could not insert module"</i> when you insert your first
+          hello world module:
+          <pre
+            class="language-shell"
+          ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>insmod ./hello-1.ko</code></pre>
+        </li>
+        <p>
+          And then you can check further with <b>dmesg</b> and see the following
+          text:
+        </p>
+
+        <p>
+          <i
+            >Lockdown: insmod: unsigned module loading is restricted; see man
+            kernel lockdown.7</i
+          >
+        </p>
+
+        <p>
+          If you got this message, the simplest way is to disable the UEFI
+          SecureBoot from the PC/Laptop boot menu to have your "hello-1" to be
+          inserted. Of course you can go through complicated steps to generate
+          keys, install keys to your system, and finally sign your module to
+          make it work. However, this is not suitable for beginners. You could
+          read and follow the steps in
+          <a href="https://wiki.debian.org/SecureBoot">SecureBoot</a> if you are
+          interested.
+        </p>
+      </section>
+    </article>
+
+    <footer class="footer">
+      <ul>
+        <li><a href="/about"> about </a></li>
+        <li><a href="/cheat"> cheatsheet </a></li>
+        <li><a href="https://github.com/boecker"> github </a></li>
+      </ul>
+      <p onclick="document.querySelector('body').classList.toggle('mono')">
+        &copy; 2022 Jack Boecker
+      </p>
+    </footer>
+  </body>
+</html>

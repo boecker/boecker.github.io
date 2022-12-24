@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="/public/prism-one-dark.css" rel="stylesheet" />
+  <link href="/public/prism-one-light.css" rel="stylesheet" />
+  <link href="/public/main.css" rel="stylesheet" />
+
+  <link rel="canonical" href="https://shaky.sh/how-to-update-a-map-in-rust/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script defer data-domain="boecker.github.io" src="https://plausible.io/js/script.outbound-links.js"></script>
+</head>
+
+<body>
+  <h1> <a href='/'> Jack's Portfolio </a></h1>
+  <article class="page">
+    <header>
+      <h1> What is a Kernel Module? </h1>
+      <time datetime="2022-12-14T00:00:00.000Z">December 2022</time>
+      <h2 </h2>
+    </header>
+    <section <p>So, you want to write a kernel module. You know C, you've written a few normal programs to run as
+      processes, and
+      now you want to get to where the real action is, to where a single wild pointer can wipe out your file system and
+      a
+      core dump means a reboot.
+
+      What exactly is a kernel module? Modules are pieces of code that can be loaded and unloaded into the kernel upon
+      demand. They extend the functionality of the kernel without the need to reboot the system. For example, one type
+      of module is the device driver, which allows the kernel to access hardware connected to the system. Without
+      modules, we would have to build monolithic kernels and add new functionality directly into the kernel image.
+      Besides having larger kernels, this has the disadvantage of requireing us to rebuild and reboot the kernel every
+      time
+      we want new functionality. </p>
+    </section>
+    <h1> How do modules get into the Kernel? </h1>
+    <section>
+      <p>You can see what modules are already loaded inth the kernel by running <b>lsmod</b>, which gets its information
+        by
+        reading the <tt>/proc/modules</tt>.
+      </p>
+      <p>How do these modules find their way into the kernel? When the kernel needs a feature that is not resident in
+        the
+        kernel, the kernel moduled daemon <a href="https://man7.org/linux/man-pages/man8/kmod.8.html">kmod</a> execs
+        modprobe to load the module in. modprobe is passed a string
+        in one of two forms:
+
+        <li>A module name like <tt>softdog</tt> or <tt>ppp</tt>
+        <li>A more generic identifier like <tt>char-major-10-30</tt>
+      </p>
+    </section>
+
+  </article>
+
+  <footer class="footer">
+    <ul>
+      <li><a href="/about"> about </a></li>
+      <li><a href="/cheat"> cheatsheet </a></li>
+    </ul>
+    <p onclick="document.querySelector('body').classList.toggle('mono')">&copy; 2022 Jack Boecker</p>
+  </footer>
+</body>

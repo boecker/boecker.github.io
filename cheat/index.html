@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="/public/prism-one-dark.css" rel="stylesheet" />
+  <link href="/public/prism-one-light.css" rel="stylesheet" />
+  <link href="/public/main.css" rel="stylesheet" />
+
+  <link rel="canonical" href="https://boecker.github.io/cheat/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script defer data-domain="boecker.github.io" src="https://plausible.io/js/script.outbound-links.js"></script>
+</head>
+
+<body>
+  <h1> <a href='/'> Jack's Portfolio </a></h1>
+  <article class="page">
+    <h2>Cheatsheet</h2>
+    <p>I do as much as possible on the command line, so this is my (growing) cheat sheet of commands I frequently have
+      to look up. This page is for me, but if you find it useful, great!</p>
+    <p>Recursively find all files with extension:</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">find</span> <span
+          class="token builtin class-name">.</span> -name <span class="token string">"*.txt"</span></code></pre>
+    <p>Benchmarking from the command line with <a href="https://github.com/sharkdp/hyperfine">hyperfine</a>:</p>
+    <pre class="language-bash"><code class="language-bash">hyperfine <span class="token string">'node fib.js'</span>
+        <span class="token string">'bun fib.js'</span></code></pre>
+    <p>Update a forked repo with the latest from upstream:</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">git</span> fetch
+        upstream<br><span class="token function">git</span> rebase upstream/main<br><span
+          class="token function">git</span> push origin main</code></pre>
+    <p>How to update Drop Alt keyboard <a href="https://docs.qmk.fm/#/keycodes">qmk</a> firmware:</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">vim</span> <span
+          class="token variable">$QMK_FIRMWARE</span>/keyboards/massdrop/alt/keymaps/personal1/keymap.c<br>qmk compile
+        -kb massdrop/alt -km personal1<br>mdloader --first --download .build/massdrop_alt_personal1.hex
+        --restart<br><span class="token comment"># then hold &lt;Fn-b> for 0.5s</span></code></pre>
+    <p>Replace text in Bash variable (and remove spaces from file name):</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">ls</span> <span
+          class="token operator">|</span> <span class="token keyword">while</span> <span
+          class="token builtin class-name">read</span> <span class="token function">file</span> <span
+          class="token keyword">do</span><br> <span class="token function">mv</span> <span class="token string">"<span
+            class="token variable">$file</span>"</span> <span class="token string">"<span
+            class="token variable">${file<span class="token operator">/</span> <span
+              class="token operator">/</span>-}</span>"</span><br><span class="token keyword">done</span></code></pre>
+    <p>Move branch B to branch off master instead of branch A, now that
+      branch A has been merged into master:</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">git</span> rebase --onto master
+        branch-a branch-b</code></pre>
+    <p>Remove a commit from a branch when it's not the last commit. There
+      are other ways, but this is the easiest:</p>
+    <pre class="language-bash"><code class="language-bash"><span class="token function">git</span> rebase -i <span
+          class="token operator">&lt;</span>hash-from-before-the-offending-commit<span
+          class="token operator">></span><br><span class="token comment"># manually delete the commit line, and
+          save</span></code></pre>
+    <p>Use the <a href="https://www.nerdfonts.com/cheat-sheet">Nerd Font Cheat Sheet</a> to
+      include icons in your shell scripts.</p>
+    <p><a
+        href="https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range">Get
+        a random integer between <code>min</code> and <code>max</code> (inclusive)</a>:</p>
+    <pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span
+          class="token function">getRandomInt</span><span class="token punctuation">(</span><span
+          class="token parameter">min<span class="token punctuation">,</span> max</span><span
+          class="token punctuation">)</span> <span class="token punctuation">{</span><br> min <span
+          class="token operator">=</span> Math<span class="token punctuation">.</span><span
+          class="token function">ceil</span><span class="token punctuation">(</span>min<span
+          class="token punctuation">)</span><span class="token punctuation">;</span><br> max <span
+          class="token operator">=</span> Math<span class="token punctuation">.</span><span
+          class="token function">floor</span><span class="token punctuation">(</span>max<span
+          class="token punctuation">)</span><span class="token punctuation">;</span><br> <span
+          class="token keyword">return</span> Math<span class="token punctuation">.</span><span
+          class="token function">floor</span><span class="token punctuation">(</span>Math<span
+          class="token punctuation">.</span><span class="token function">random</span><span
+          class="token punctuation">(</span><span class="token punctuation">)</span> <span
+          class="token operator">*</span> <span class="token punctuation">(</span>max <span
+          class="token operator">-</span> min <span class="token operator">+</span> <span
+          class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token operator">+</span> min<span class="token punctuation">;</span><br><span
+          class="token punctuation">}</span></code></pre>
+
+  </article>
+
+  <footer class="footer">
+    <ul>
+      <li><a href="/about"> about </a></li>
+      <li><a href="/cheat"> cheatsheet </a></li>
+    </ul>
+    <p onclick="document.querySelector('body').classList.toggle('mono')">&copy; 2022 Jack Boecker</p>
+  </footer>
+</body>
+
+</html>

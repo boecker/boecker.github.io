@@ -110,6 +110,79 @@
           <a href="https://wiki.debian.org/SecureBoot">SecureBoot</a> if you are
           interested.
         </p>
+        <h1>Headers</h1>
+        <p>Before you can build anything you'll need to install header files for your kernel.</p>
+
+        <p>On Ubuntu/Debian:</p>
+<code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>sudo apt-get update</code></pre>
+        <h1></h1>
+<code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>apt-cache search linux-headers-`uname -r`</code></pre>
+        <p>On Arch Linux:</p>
+<code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>sudo pacman -S linux-headers</code></pre>
+
+        <p>This will tell you what kernel header files are available. Then for example:</p>
+        <code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>sudo apt-get install kmod linux-headers-VERSION-generic</code></pre>
+
+        <h1>Examples</h1>
+        <p>All the examples from this article are available within the <b>examples</b> subdirectory.</p>
+        <p>If there are any compile errors then you might have a more recent kernel version or need to install the corresponding kernel header files.</p>
+        <h1>Hello World</h1>
+        <h2>The Simplest Module</h2>
+        <p>Most people learning programming start out with some soft of <i>hello world</i> example. I don't
+        know what happens to people who break this tradition, but I think it is safer not to find out.
+        We will start with a series of hello world programs that demonstrate the different aspects of the
+        basics of writing a kernel module.</p>
+
+        <p>Here is the simplest module possible.</p>
+
+        <p>Make a test directory:</p>
+        <pre
+          class="language-shell"
+        ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>mkdir -p ~/develop/kernel/hello-1</code></pre>
+<pre
+          class="language-shell"
+        ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>cd ~/develop/kernel/hello-1</code></pre>
+        <p>Paste this into your favorite editor and save it as <b>hello-1.c</b></p>
+        <pre class='language-c' id='fancyvrb11'><a id='x1-12008r1'></a><span class='ecrm-0500'>1</span><span id='textcolor3'><span class='ectt-0800'>/*</span></span> 
+<a id='x1-12010r2'></a><span class='ecrm-0500'>2</span><span id='textcolor4'><span class='ectt-0800'> * hello-1.c - The simplest kernel module.</span></span> 
+<a id='x1-12012r3'></a><span class='ecrm-0500'>3</span><span id='textcolor5'><span class='ectt-0800'> */</span></span> 
+<a id='x1-12014r4'></a><span class='ecrm-0500'>4</span><span id='textcolor6'><span class='ectt-0800'> #include</span></span><span class='ectt-0800'> </span><span id='textcolor7'><span class='ectt-0800'>&lt;linux/kernel.h&gt; /* Needed for pr_info() */</span></span> 
+<a id='x1-12016r5'></a><span class='ecrm-0500'>5</span><span id='textcolor8'><span class='ectt-0800'> #include</span></span><span class='ectt-0800'> </span><span id='textcolor9'><span class='ectt-0800'>&lt;linux/module.h&gt; /* Needed by all modules */</span></span> 
+<a id='x1-12018r6'></a><span class='ecrm-0500'>6</span> 
+<a id='x1-12020r7'></a><span class='ecrm-0500'>7</span><span id='textcolor10'><span class='ectt-0800'> int</span></span><span class='ectt-0800'> init_module(</span><span id='textcolor11'><span class='ectt-0800'>void</span></span><span class='ectt-0800'>)</span> 
+<a id='x1-12022r8'></a><span class='ecrm-0500'>8</span><span class='ectt-0800'> {</span> 
+<a id='x1-12024r9'></a><span class='ecrm-0500'>9</span><span class='ectt-0800'>    pr_info(</span><span id='textcolor12'><span class='ectt-0800'>"Hello world 1.</span></span><span id='textcolor13'><span class='ectt-0800'>\n</span></span><span id='textcolor14'><span class='ectt-0800'>"</span></span><span class='ectt-0800'>);</span> 
+<a id='x1-12026r10'></a><span class='ecrm-0500'>10</span> 
+<a id='x1-12028r11'></a><span class='ecrm-0500'>11</span><span class='ectt-0800'>    </span><span id='textcolor15'><span class='ectt-0800'>/* A non 0 return means init_module failed; module can</span><span class='tctt-0800'>'</span><span class='ectt-0800'>t be loaded. */</span></span> 
+<a id='x1-12030r12'></a><span class='ecrm-0500'>12</span><span class='ectt-0800'>    </span><span id='textcolor16'><span class='ectt-0800'>return</span></span><span class='ectt-0800'> 0;</span> 
+<a id='x1-12032r13'></a><span class='ecrm-0500'>13</span><span class='ectt-0800'> }</span> 
+<a id='x1-12034r14'></a><span class='ecrm-0500'>14</span> 
+<a id='x1-12036r15'></a><span class='ecrm-0500'>15</span><span id='textcolor17'><span class='ectt-0800'> void</span></span><span class='ectt-0800'> cleanup_module(</span><span id='textcolor18'><span class='ectt-0800'>void</span></span><span class='ectt-0800'>)</span> 
+<a id='x1-12038r16'></a><span class='ecrm-0500'>16</span><span class='ectt-0800'> {</span> 
+<a id='x1-12040r17'></a><span class='ecrm-0500'>17</span><span class='ectt-0800'>    pr_info(</span><span id='textcolor19'><span class='ectt-0800'>"Goodbye world 1.</span></span><span id='textcolor20'><span class='ectt-0800'>\n</span></span><span id='textcolor21'><span class='ectt-0800'>"</span></span><span class='ectt-0800'>);</span> 
+<a id='x1-12042r18'></a><span class='ecrm-0500'>18</span><span class='ectt-0800'> }</span> 
+<a id='x1-12044r19'></a><span class='ecrm-0500'>19</span> 
+<a id='x1-12046r20'></a><span class='ecrm-0500'>20</span><span class='ectt-0800'> MODULE_LICENSE(</span><span id='textcolor22'><span class='ectt-0800'>"GPL"</span></span><span class='ectt-0800'>);</span></pre>
+
+        <p>Now you will need to make a <b>Makefile</b>. If you copy and paste this, change the indentation to use <i>tabs,</i> not spaces</p>
+        </p><!-- l. 1 --><p class='indent'>
+</p>
+   <pre class='language-make' id='fancyvrb12'><a id='x1-12057r1'></a><span class='ecrm-0500'>1</span><span class='language-make'> obj-m += hello-1.o</span> 
+<a id='x1-12059r2'></a><span class='ecrm-0500'>2</span> 
+<a id='x1-12061r3'></a><span class='ecrm-0500'>3</span><span class='ectt-0800'> PWD := </span><span class='colorbox' id='colorbox23'><span class='ectt-0800'>$</span></span><span class='ectt-0800'>(CURDIR)</span> 
+<a id='x1-12063r4'></a><span class='ecrm-0500'>4</span> 
+<a id='x1-12065r5'></a><span class='ecrm-0500'>5</span><span class='ectt-0800'> all:</span> 
+<a id='x1-12067r6'></a><span class='ecrm-0500'>6</span><span class='ectt-0800'>    make -C /lib/modules/</span><span class='colorbox' id='colorbox24'><span class='ectt-0800'>$</span></span><span class='ectt-0800'>(shell uname -r)/build M=</span><span class='colorbox' id='colorbox25'><span class='ectt-0800'>$</span></span><span class='ectt-0800'>(PWD) modules</span> 
+<a id='x1-12069r7'></a><span class='ecrm-0500'>7</span> 
+<a id='x1-12071r8'></a><span class='ecrm-0500'>8</span><span class='ectt-0800'> clean:</span> 
+<a id='x1-12073r9'></a><span class='ecrm-0500'>9</span><span class='ectt-0800'>    make -C /lib/modules/</span><span class='colorbox' id='colorbox26'><span class='ectt-0800'>$</span></span><span class='ectt-0800'>(shell uname -r)/build M=</span><span class='colorbox' id='colorbox27'><span class='ectt-0800'>$</span></span><span class='ectt-0800'>(PWD) clean</span></pre>
+<!-- l. 258 --><p class='indent'>   In <span class='obeylines-h'><span class='verb'><span class='ectt-1000'>Makefile</span></span></span>, <span class='obeylines-h'><span class='verb'><span class='ectt-1000'>$(CURDIR)</span></span></span> can set to the absolute pathname of the current working
+directory(after all <span class='obeylines-h'><span class='verb'><span class='ectt-1000'>-C</span></span></span> options are processed, if any). See more about <span class='obeylines-h'><span class='verb'><span class='ectt-1000'>CURDIR</span></span></span> in <a href='https://www.gnu.org/software/make/manual/make.html'>GNU
+make manual</a>.
+        <p>And finally, just run make directly.</p>
+        <pre
+          class="language-shell"
+        ><code class="language-shell"><span class="token builtin class-name"></span> <span class="token assign-left variable">$</span><span class="token operator"> </span>make</code></pre>
       </section>
     </article>
 
